@@ -1,5 +1,11 @@
+require'pg'
+# require'./spec/spec_helper'
+
+DB = PG.connect({:dbname => 'to_do_test'})
+
 class List
   attr_reader(:name, :id)
+
 
   def initialize(attributes)
     @name = attributes.fetch(:name)
@@ -15,6 +21,14 @@ class List
       lists.push(List.new({:name => name, :id => id}))
     end
     lists
+  end
+
+  def self.find(id)
+    returned_lists = DB.exec("SELECT * FROM lists WHERE id = #{id};")
+    returned_lists.each() do |list|
+      name = list.fetch("name")
+      return List.new({:name => name, :id => id})
+    end
   end
 
   def save

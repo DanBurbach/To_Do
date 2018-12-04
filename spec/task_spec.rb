@@ -59,4 +59,14 @@ require 'spec_helper'
       expect(Task.find(id)).to(eq(task1))
     end
   end
+
+  describe(".find_by_list") do
+    it("find a task based on list id") do
+      task1 = Task.new({:name => 'Do homework', :description => 'Finish math and science assignment!', :due_date => 6, :id => nil, :list_id => 1})
+      task1.save
+      task2 = Task.new({:name => 'Mow lawn', :description => 'Mow the front lawn soon!', :due_date => 4, :id => nil, :list_id => 2})
+      task2.save
+      expect(Task.find_by_list(2)).to(eq([task2]))
+    end
+  end
 end

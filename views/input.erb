@@ -1,0 +1,15 @@
+<h1>Create a new list</h1>
+<form action="/add_list" method="post">
+  <div class="form-group">
+    <label for="name">Name your list</label>
+    <input type="text" name="name" class="form-control">
+  </div>
+  <button type="submit" name="button">Add</button>
+</form>
+
+<h2>Your lists</h2>
+<ul>
+  <% @lists.each do |list| %>
+    <li><a href="/list/<%= list.id %>"><%= list.name %></a></li>
+  <% end %>
+</ul>
